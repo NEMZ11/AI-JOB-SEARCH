@@ -2,179 +2,172 @@
 framework_version: 1.0.2
 ---
 
-# Cover Letter Templates and Tailoring Guide
+# Cover Letter Templates and Tailoring Guide - George Williams Mugabi
 
 ## Template: Custom cover.cls (XeLaTeX)
-
-Cover letters use a custom LaTeX document class (`cover.cls`) with Lato/Raleway fonts.
+Cover letters use `cover_letters/cover.cls` with the bundled Lato/Raleway fonts.
 
 **Output file:** `cover_letters/cover_<company>_<role>.tex`
-**Compile with:** XeLaTeX (cover.cls requires fontspec)
-**Font directory:** `cover_letters/OpenFonts/fonts/`
-
-### Compile command
+**Compile with:** XeLaTeX
 
 ```bash
-cd cover_letters && xelatex -interaction=nonstopmode cover_<company>_<role>.tex
+cd cover_letters && xelatex -interaction=nonstopmode -halt-on-error cover_<company>_<role>.tex
 ```
 
-Expected output: `Output written on cover_<company>_<role>.pdf (1 page, ...)`. Any page count other than 1 is a failure that must be fixed before presenting to the user.
+The final letter must compile successfully and be **exactly 1 page**.
 
-## Compile-and-Inspect Loop (MANDATORY)
+## Privacy-Safe Header Rule
+This repository is public. Tracked cover-letter templates must not contain private phone numbers, personal email addresses, exact street addresses, private LinkedIn URLs, referee contacts, or immigration-document details.
 
-After writing the cover letter and before presenting to the user, always compile and visually inspect the PDF. Iterate until the layout is clean:
-
-1. Run `xelatex -interaction=nonstopmode cover_<company>_<role>.tex`
-2. Confirm page count is exactly 1 and compile succeeded
-3. Read the PDF via the Read tool and visually check: signature fits at the bottom, no text cut off, bullet font matches body
-
-### Known template pitfall: itemize inside `\lettercontent{}`
-
-The `\lettercontent{}` macro appends `\\` to its argument. This breaks when the argument ends in `\end{itemize}` because `\\` has no line to break after the environment closes, producing `! LaTeX Error: There's no line here to end.` and no PDF output.
-
-**Wrong (breaks compile):**
+Default tracked header:
 ```latex
-\lettercontent{Here is how my experience maps:
-\begin{itemize}
-    \item ...
-\end{itemize}}
+\namesection{}{\Huge{George Williams Mugabi}}{Warsaw, Poland}
 ```
 
-**Correct — close `\lettercontent{}` before the list and wrap the list in the matching Raleway-Medium font so typography stays consistent:**
+Default signature:
 ```latex
-\lettercontent{Here is how my experience maps:}
-
-{\raggedright\fontspec[Path = OpenFonts/fonts/raleway/]{Raleway-Medium}\fontsize{11pt}{13pt}\selectfont
-\begin{itemize}
-    \item ...
-\end{itemize}\par}
-\vspace{6pt}
-
-\lettercontent{[next paragraph]}
+\signature{George Williams Mugabi}
 ```
 
-The font wrapper is mandatory — if you just move `\begin{itemize}` outside `\lettercontent{}` without the `\fontspec` block, bullets render in the default body font (Lato) and visually mismatch the rest of the letter.
+Private contact details may be inserted only into a **local/private final application artifact** if the user explicitly asks.
 
-## Document Structure
+## Candidate-Specific Positioning
+
+### For Data / BI / Business Analytics roles
+Emphasize:
+- final-year Business and Security Analytics studies
+- Excel, Power BI, SQL and reporting/data validation
+- practical project evidence from Trust Company Loan Management and Employee Task API
+- ability to connect business requirements with technical/data solutions
+- English C1+ and international experience
+
+Do not claim years of professional analyst experience if the evidence is academic/project-based.
+
+### For IT / Application Support roles
+Emphasize:
+- Qatar Energy customer/help-desk experience
+- troubleshooting orientation and communication
+- Windows / Microsoft Office / SQL / APIs / software-project familiarity
+- ability to explain technical issues clearly and work with users
+
+Qatar Energy dates must be confirmed before a final application if the letter mentions tenure.
+
+### For Customer Service / Back Office / Operations roles
+Emphasize:
+- international customer/help-desk experience
+- English C1+ / IELTS
+- tutoring experience as evidence of clear communication and patience
+- Excel / Microsoft Office
+- reliability, customer focus and ability to learn systems quickly
+
+### For Software / Technology internships
+Emphasize:
+- Trust Company Loan Management System
+- Employee Task Management API
+- C#, ASP.NET Core, JavaScript/TypeScript, React/Next.js, PostgreSQL/SQL Server, REST APIs
+- Git/GitHub, Docker, GitHub Actions, Postman
+- business understanding from the degree
+
+## Structure
+Use this pattern:
 
 ```latex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Cover Letter - [Company], [Role]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \documentclass[]{cover}
 \usepackage{fancyhdr}
-
 \pagestyle{fancy}
 \fancyhf{}
-
 \rfoot{Page \thepage \hspace{0pt}}
 \thispagestyle{empty}
 \renewcommand{\headrulewidth}{0pt}
 \begin{document}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     TITLE NAME
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\namesection{}{\Huge{[YOUR_NAME]}}{  \href{mailto:[YOUR_EMAIL]}{[YOUR_EMAIL]} | [YOUR_PHONE] |  \urlstyle{same}\href{[YOUR_LINKEDIN_URL]}{LinkedIn}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%     MAIN COVER LETTER CONTENT
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\namesection{}{\Huge{George Williams Mugabi}}{Warsaw, Poland}
 
 \currentdate{\today}
 \lettercontent{Dear [Name/Team],}
 
-\lettercontent{[Opening paragraph - role, connection to background, 2-3 sentences]}
+\lettercontent{[Opening: name the role and immediately connect the most relevant part of George's background.]}
 
-\lettercontent{[Body paragraph - most relevant experience, introducing the bullet list]}
+\lettercontent{[Why this company/role: independently verified reason, not generic enthusiasm.]}
+
+\lettercontent{[Introduce 3-4 concrete points that map directly to the posting.]}
 
 {\raggedright\fontspec[Path = OpenFonts/fonts/raleway/]{Raleway-Medium}\fontsize{11pt}{13pt}\selectfont
 \begin{itemize}
-    \item {[Concrete achievement/skill 1]}
-    \item {[Concrete achievement/skill 2]}
-    \item {[Concrete achievement/skill 3]}
+    \item {[Grounded strength 1]}
+    \item {[Grounded strength 2]}
+    \item {[Grounded strength 3]}
 \end{itemize}\par}
+\vspace{6pt}
 
-\lettercontent{[Connection to company - why this role, why this company specifically]}
+\lettercontent{[Forward-looking close: what George can contribute, with any important gap acknowledged honestly.]}
 
-\lettercontent{[Personal fit paragraph - behavioral strengths, team contribution, 2-3 sentences]}
-
-\lettercontent{I look forward to hearing from you.}
+\lettercontent{I would welcome the opportunity to discuss the role further.}
 
 \begin{flushright}
-% No trailing \\ inside \closing{} - cover.cls appends its own \\, and a
-% doubled break triggers "! LaTeX Error: There's no line here to end."
 \closing{Kind regards,}
-
-\signature{[YOUR_NAME]}
+\signature{George Williams Mugabi}
 \end{flushright}
 \end{document}
 ```
 
-## Key Commands Reference
+## Known Template Pitfall
+Never end a `\lettercontent{}` block with `\end{itemize}`. The macro appends a line break and will fail. Close `\lettercontent{}` before the list and wrap the external list in the Raleway font block shown above.
 
-| Command | Purpose |
-|---------|---------|
-| `\namesection{}{Name}{contact info}` | Header with name and contact |
-| `\currentdate{date}` | Date field (use `\today` or explicit date) |
-| `\lettercontent{text}` | Body paragraph (adds spacing after) |
-| `\closing{text}` | Closing line |
-| `\signature{name}` | Printed name below signature |
+## Writing Rules
+Follow `03-writing-style.md`.
 
-## Tailoring Guidelines
+For this candidate specifically:
+- No generic "I am passionate about" openings.
+- Lead with the best evidence for the role.
+- Use project work honestly as project work.
+- Do not turn basic Polish into fluent Polish.
+- Do not imply the current degree is completed.
+- Do not invent Qatar Energy dates or numerical achievements.
+- Do not mention warehouse/logistics work unless it is genuinely relevant to the target role or chronology.
+- Do not expose private contact details in tracked/public source files.
+- Company-specific claims must be independently verified.
 
-### Salutation
-- If you know the hiring manager's name: "Dear [First Last],"
-- If you know the team: "Dear [Company] hiring team,"
-- Generic: "Dear [Company]," (avoid "To whom it may concern")
+## Length
+- Hard limit: 1 page
+- Safe body target: approximately 250-300 words
+- 3-4 short content blocks plus a concise bullet list
+- If company-specific content is added, trim elsewhere rather than allowing the letter to grow beyond one page
 
-### Length - Hard 1-Page Limit
-- Target: 1 page including signature block
-- Maximum: **never exceed 1 page**
-- **Word budget: 250-300 words** of body text (not counting LaTeX markup). This is the safe maximum. 350 words will overflow.
-- **Always count**: opening paragraph + bullet list paragraph + closing paragraph = 3 blocks. Add a 4th only if the others are short.
-- When adding company-specific content, trim other content to compensate rather than adding net length
+## Salutation
+Preferred order:
+1. Named hiring manager/recruiter from the verified posting
+2. `Dear [Company] hiring team,`
+3. `Dear Hiring Manager,`
 
-### Line Spacing
-- Add `\usepackage{setspace}` and `\setstretch{1.0}` if the letter is long and needs to fit on one page
-- Use `\vspace{.5cm}` between major sections for readability (only if space permits)
+Avoid `To whom it may concern` unless explicitly required.
 
-### Bullet Lists
-- Place `\begin{itemize}...\end{itemize}` **outside** a `\lettercontent{}` block (see "Known template pitfall" above), wrapped in the matching Raleway-Medium `\fontspec` so the bullet font matches the body
-- 3-5 bullets is ideal
-- Start each bullet with bold label or action verb
-- Use `\textbf{Label:}` for category-style bullets
-- A bullet whose text begins with a literal `[` must be braced: `\item {[text]}`. Unbraced, LaTeX parses `[text]` as `\item`'s optional label and renders it off the left page edge, missing from the PDF text layer entirely
+## Requirement Coverage
+Every material requirement in the posting should be either:
+- matched with a grounded example,
+- bridged with adjacent evidence,
+- or acknowledged honestly as a gap.
 
-### LaTeX Special Characters
-Escape these wherever they appear in body text:
-- Ampersand: `\&` (company names: Brüel \& Kjær, H\&M) - unescaped, the compile fails loudly
-- Percent: `\%` ("grew revenue 30\%") - unescaped, it does **not** fail: everything after the `%` on that line is silently eaten as a LaTeX comment
-- Dollar: `\$`, hash: `\#`, underscore: `\_`
-- Tilde: `\textasciitilde{}`, caret: `\textasciicircum{}`, backslash: `\textbackslash{}`
+Do not omit an obvious gap merely because mentioning it is uncomfortable.
 
-### Non-English Cover Letters
-- Same template structure, just write content in the posting's language
-- Adjust date format to local convention
-- Adjust closing to local convention (e.g. "Med venlig hilsen," for Danish)
+## Language
+- Cover letter language follows the actual job posting / working context as `/apply` specifies.
+- CV language remains English unless the user changes the profile-level setting.
+- A posting written in Polish does not automatically mean the role requires fluent Polish. Use the Language Gate in `04-job-evaluation.md`.
 
-## Checklist Before Finalizing
-- [ ] No em-dashes (use commas or periods instead)
-- [ ] No cliches or empty filler
-- [ ] Every claim backed by specific example
-- [ ] Forward-looking framing: focuses on tasks you'll solve, not just past duties
-- [ ] Motivation section references this specific company's mission/values
-- [ ] Company name and role are correct throughout
-- [ ] Date is current
-- [ ] Fits on one page
-- [ ] Language matches the job posting language
-- [ ] Salutation is appropriate (named person if possible)
-- [ ] Headline is engaging and specific, not generic
+## LaTeX Special Characters
+Escape `&`, `%`, `$`, `#`, `_`, `~`, `^`, and backslashes wherever they appear in body text. An unescaped `%` is especially dangerous because it silently comments out the rest of the line.
 
-## Submission Guidelines (Best Practice)
-- Submit only the documents the employer requests
-- Export as PDF to preserve formatting
-- Name files clearly: "[Your Name] CV" and "[Your Name] Cover Letter"
-- Follow all employer instructions regarding anonymity or specific materials
+## Compile-and-Inspect Loop - Mandatory
+1. Compile with XeLaTeX using `-halt-on-error`.
+2. Confirm exactly one page.
+3. Visually inspect the PDF.
+4. Confirm signature fits and nothing is clipped.
+5. Confirm external itemize bullets use the matching Raleway font.
+6. Re-check spelling, company name, role title, salutation and date.
+7. Re-check factual grounding against `01-candidate-profile.md`, `CLAUDE.md`, and `cv/main_example.tex`.
+
+## Submission Guidelines
+- Submit only what the employer asks for.
+- Export PDF for final submission unless the employer requests another format.
+- Use clear filenames such as `George_Williams_Mugabi_CV.pdf` and `George_Williams_Mugabi_Cover_Letter.pdf` in the private final application package.
