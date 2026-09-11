@@ -1,21 +1,11 @@
-%% Example CV - [YOUR_NAME]
-%% Comprehensive overview of all competencies, experience, and achievements.
-%% Use as a master reference when tailoring role-specific CVs.
-%%
-%% SETUP: Run /setup to populate this with your actual information.
+%% Master CV baseline - George Williams Mugabi
+%% Privacy-safe tracked source. Add private contact details only in a local/private final artifact.
 %% Compile with: lualatex main_example.tex
-%% (pdflatex often fails on modern MiKTeX with fontawesome5 font-expansion errors.)
 
 \documentclass[11pt,a4paper,sans]{moderncv}
 \moderncvstyle{banking}
 \moderncvcolor{blue}
 
-% Force the name and section headings to render in moderncv blue (color1).
-% Default banking leaves them black: moderncvstylebanking.sty's \colorlet
-% copies (not aliases) the pre-scheme accent colour, so the name colours are
-% frozen before \moderncvcolor runs. Re-let them after. \namefont is the hook
-% every name-style macro routes through, so this also works on moderncv 2.3.1
-% (Debian/Ubuntu apt), which has no \firstnamestyle/\lastnamestyle at all.
 \renewcommand*{\namefont}{\fontsize{34}{36}\bfseries\upshape}
 \colorlet{firstnamecolor}{color1}
 \colorlet{lastnamecolor}{color1}
@@ -23,161 +13,123 @@
 \renewcommand*{\sectionstyle}[1]{{\sectionfont\color{color1}#1}}
 
 \usepackage[utf8]{inputenc}
-% moderncv loads hyperref itself in an \AtEndPreamble hook, so \hypersetup
-% must go in an \AtEndPreamble of our own: on moderncv < 2.4 a top-level
-% \usepackage{hyperref} clashes with the class's own
-% \RequirePackage[unicode]{hyperref}. From 2.4.0 the class passes its options
-% through \PassOptionsToPackage instead, which is what removes that clash.
 \AtEndPreamble{\hypersetup{
     colorlinks=true,
     linkcolor=blue,
     filecolor=magenta,
     urlcolor=blue,
-    pdftitle={[YOUR_NAME] - CV},
-    % Keep pdfpagemode=UseNone: this block runs after moderncv's own
-    % \AtEndPreamble (moderncv.cls sets pdfpagemode there), so a FullScreen
-    % value here would win and open every CV in fullscreen presentation mode.
+    pdftitle={George Williams Mugabi - CV},
     pdfpagemode=UseNone,
 }}
 \usepackage[scale=0.80]{geometry}
 \usepackage{import}
+\usepackage{needspace}
 
-% personal data
-\name{[First]}{[Last]}
-% If you have no address to list, DELETE this whole line. \address{}{}{} fails
-% with "There's no line here to end" on every moderncv version.
-\address{[Your Address, City, Country]}{}{}
-\phone[mobile]{[+XX XXXXXXXXXX]}
-\email{[your.email@example.com]}
-\extrainfo{\href{[https://linkedin.com/in/your-profile]}{LinkedIn}, \href{[https://github.com/your-username]}{GitHub}}
+% Privacy-safe personal data for the public repository.
+\name{George Williams}{Mugabi}
+\address{Warsaw, Poland}{}{}
 
 \begin{document}
-
 \makecvtitle
 
-% ============================================================
-%     PROFILE STATEMENT
-% ============================================================
-
-\vspace{6pt}
-\small{[Write a 3-5 line profile statement tailored to the role you're applying for. Focus on what makes you uniquely qualified. Example: "Data scientist with a PhD in [field] and X years of industry experience. Combines deep domain expertise in [domain] with strong applied machine learning and Python development skills. Experienced in developing end-to-end ML pipelines, from data ingestion to stakeholder-facing dashboards."]}
-
-% ============================================================
-%     CORE COMPETENCIES
-% ============================================================
+\vspace{4pt}
+\small{Final-year Business and Security Analytics student at Vistula University with hands-on experience across data and reporting tools, customer/help-desk support, and software projects. Strong working knowledge of Excel, Power BI and SQL, supported by full-stack and API projects using Python, C\#, ASP.NET Core, TypeScript, React, Next.js and PostgreSQL. Seeking junior or internship opportunities in data/BI, business analysis, IT/application support, or business-technology teams in Warsaw.}
 
 \section{Core Competencies}
 \vspace{1pt}
 \begin{itemize}
-
-\item \textbf{[Skill Category 1]}: [Specific skills, frameworks, tools. Be concrete.]
-
-\item \textbf{[Skill Category 2]}: [Specific skills, frameworks, tools.]
-
-\item \textbf{[Skill Category 3]}: [Specific skills, frameworks, tools.]
-
-\item \textbf{[Skill Category 4]}: [Domain expertise, methods, approaches.]
-
-\item \textbf{[Skill Category 5]}: [Tools, platforms, software.]
-
+\item \textbf{Data \& BI}: Excel, Power BI, SQL, reporting, dashboards, data validation and business-focused analysis.
+\item \textbf{Business Analysis}: Requirements thinking, process understanding, translating user needs into practical solutions, documentation and structured problem solving.
+\item \textbf{IT \& Application Support}: Customer/help-desk experience, troubleshooting mindset, Microsoft Office, Windows, APIs and technical communication.
+\item \textbf{Software Development}: Python, C\#, ASP.NET Core, JavaScript/TypeScript, React, Next.js, Node.js, REST APIs.
+\item \textbf{Databases \& Delivery}: PostgreSQL, SQL Server, Prisma, Entity Framework Core, Git/GitHub, Docker, GitHub Actions, Postman.
 \end{itemize}
 
-% ============================================================
-%     PROFESSIONAL EXPERIENCE
-% ============================================================
+\section{Selected Projects}
+\vspace{1pt}
+\begin{itemize}
+\needspace{5\baselineskip}
+\item{\cventry{Current}{Trust Company Loan Management System}{Independent Project}{}{}{\vspace{1pt}
+\begin{itemize}
+    \item Built a full-stack loan-management application for a Ugandan family business using Next.js, React, Prisma and PostgreSQL.
+    \item Implemented borrower, loan, repayment and guarantor workflows together with security-focused controls including MFA, encryption, audit logging, role control, backups, rate limiting and health checks.
+    \item Worked on deployment and database migration toward Railway/PostgreSQL, including environment configuration and production validation.
+\end{itemize}}}
+
+\vspace{3pt}
+\needspace{5\baselineskip}
+\item{\cventry{Project}{Employee Task Management API}{Independent Project}{}{}{\vspace{1pt}
+\begin{itemize}
+    \item Developed a .NET 9 / ASP.NET Core Web API with Entity Framework Core and SQL Server.
+    \item Added JWT authentication, role-based authorization, CRUD endpoints, Swagger documentation and xUnit tests.
+    \item Used Docker and GitHub Actions to support repeatable development and validation workflows.
+\end{itemize}}}
+
+\vspace{3pt}
+\needspace{5\baselineskip}
+\item{\cventry{Project}{Warsaw Job Application Tool}{Independent Project}{}{}{\vspace{1pt}
+\begin{itemize}
+    \item Built a personal tool to organize and improve the job-application workflow in Warsaw.
+\end{itemize}}}
+\end{itemize}
 
 \section{Professional Experience}
-\vspace{3pt}
+\vspace{1pt}
 \begin{itemize}
-
-% --- Most Recent Role ---
-\item{\cventry{[YYYY-Present]}{[Job Title]}{[Company]}{[City, Country]}{}{\vspace{1pt}
+\needspace{5\baselineskip}
+\item{\cventry{Dates to verify before final CV}{Help Desk Receptionist / Customer Service}{Qatar Energy}{Doha, Qatar}{}{\vspace{1pt}
 \begin{itemize}
-    \item {[Achievement or responsibility 1 - be specific, use numbers where possible]}
-    \item {[Achievement or responsibility 2]}
-    \item {[Achievement or responsibility 3]}
-    \item {[Achievement or responsibility 4]}
+    \item Supported customers and visitors in a front-desk/help-desk environment and handled day-to-day questions and service requests.
+    \item Used professional communication and issue handling to support customers in an international workplace.
+    \item Relevant experience for service desk, customer support, back-office, operations and application-support roles.
 \end{itemize}}}
 
 \vspace{3pt}
-
-% --- Previous Role ---
-\item{\cventry{[YYYY-YYYY]}{[Job Title]}{[Company]}{[City, Country]}{}{\vspace{1pt}
+\needspace{5\baselineskip}
+\item{\cventry{Summer 2024}{English Tutor}{Bonaparte School}{West Bay, Doha, Qatar}{}{\vspace{1pt}
 \begin{itemize}
-    \item {[Achievement or responsibility 1]}
-    \item {[Achievement or responsibility 2]}
-    \item {[Achievement or responsibility 3]}
+    \item Taught English to primary-age learners and adapted explanations to different learning needs.
+    \item Strengthened presentation, planning, patience and one-to-one communication skills.
 \end{itemize}}}
 
 \vspace{3pt}
-
-% --- Earlier Role ---
-\item{\cventry{[YYYY-YYYY]}{[Job Title]}{[Company]}{[City, Country]}{}{\vspace{1pt}
+\needspace{5\baselineskip}
+\item{\cventry{2022}{Volunteer}{FIFA World Cup Qatar}{Qatar}{}{\vspace{1pt}
 \begin{itemize}
-    \item {[Achievement or responsibility 1]}
-    \item {[Achievement or responsibility 2]}
+    \item Supported event operations in an international, high-volume environment and worked with diverse teams and visitors.
 \end{itemize}}}
-
 \end{itemize}
 
-% ============================================================
-%     EDUCATION
-% ============================================================
+% Current warehouse/logistics employment is intentionally omitted from this tracked
+% professional baseline. CLAUDE.md and 01-candidate-profile.md retain it as background
+% context and instruct /apply to include it only when relevant or needed for chronology.
 
 \section{Education}
 \vspace{1pt}
 \begin{itemize}
-
-\item{\cventry{[YYYY-YYYY]}{[Degree] in [Field]}{[Institution]}{[City, Country]}{}{\vspace{1pt}
-Thesis: ``[Thesis Title].'' [Brief description of research focus.]
+\needspace{5\baselineskip}
+\item{\cventry{2024--present}{Bachelor of Business and Security Analytics}{Vistula University}{Warsaw, Poland}{}{\vspace{1pt}
+In progress, expected July 2027. Relevant areas include business analytics, data analysis, business processes, management, reporting, information systems and security/risk topics.
 }}
-
-\vspace{3pt}
-
-\item{\cventry{[YYYY-YYYY]}{[Degree] in [Field]}{[Institution]}{[City, Country]}{}{\vspace{1pt}
-[Brief description or key topics.]
-}}
-
 \end{itemize}
 
-% ============================================================
-%     LANGUAGES
-% ============================================================
-
-\section{Languages}
+\section{Languages \& Certification}
 \vspace{1pt}
 \begin{itemize}
-\item {[Language 1] (native), [Language 2] (fluent), [Language 3] (intermediate).}
+\item English -- Fluent / C1+. IELTS C1; Reading 8.0 and Writing 8.0.
+\item Polish -- Basic, currently learning.
 \end{itemize}
 
-% ============================================================
-%     PUBLICATIONS (optional)
-% ============================================================
-
-\section{Publications}
+\section{Tools}
 \vspace{1pt}
 \begin{itemize}
-\item {[Author(s)] ([Year]). [Title]. [Journal/Conference]. \href{[DOI_URL]}{DOI link}}
+\item Microsoft Excel, Power BI, PowerPoint, Git/GitHub, Visual Studio, VS Code, Postman, Docker, GitHub Actions, Windows and Linux.
 \end{itemize}
-
-% ============================================================
-%     HONORS AND AWARDS (optional)
-% ============================================================
-
-\section{Honors and Awards}
-\vspace{1pt}
-\begin{itemize}
-\item{\textbf{[Award Name]} -- [Event/Organization] ([Year]).}
-\end{itemize}
-
-% ============================================================
-%     REFERENCES
-% ============================================================
 
 \section{References}
 \vspace{1pt}
 \begin{itemize}
-\item{Available upon request.}
+\item Available upon request.
 \end{itemize}
 
 \end{document}

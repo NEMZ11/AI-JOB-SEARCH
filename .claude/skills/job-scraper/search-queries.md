@@ -1,90 +1,214 @@
 # Search Queries for Job Scraper
 
-<!-- SETUP: Customize these queries based on your skills, target roles, and location -->
+## Search Goal
+Find fresh, realistic early-career opportunities for George Williams Mugabi in Warsaw, Poland, prioritizing English-friendly roles that build toward data/BI, business analysis, IT/application support, or business-technology work.
 
-## Installed portal CLIs (primary for `/scrape`)
+## Installed portal CLIs
+`/scrape` should use installed portal skills under `.agents/skills/*/SKILL.md` first. Keep the country-agnostic LinkedIn and FreeHire skills enabled. Danish demo portals should remain disabled for this Poland-based search unless explicitly requested later.
 
-`/scrape` discovers every portal skill under `.agents/skills/*/SKILL.md` and runs its CLI first. Shipped country-agnostic CLIs include `linkedin-search` and `freehire-search`; Danish demos and any skill you add with `/add-portal` are included the same way. You do **not** need a matching `site:` line below for those CLIs to run.
-
-The `site:` query templates in this file are the **WebSearch fallback** — for portals without a CLI, company career pages, or when a CLI fails.
-
-**Language scope:** write every query category in every language listed in your CLAUDE.md Languages table (typically 1-2, sometimes more). A posting requiring a language you have *not* declared, as a job condition, is excluded before scoring; a posting requiring a *higher level* than you declared in a language you *do* work in is flagged for your own judgment, not excluded — see `04-job-evaluation.md`'s Language Gate, the single source of truth for this rule. Translate each category's keywords rather than machine-translating word-for-word (e.g. "Frontend Developer" -> "Desarrollador Frontend", not a literal word-for-word translation) if you work in more than one language.
+For Polish-market boards without a dedicated CLI, use WebSearch/site-search fallback. Never invent CLI flags for a portal that does not document them.
 
 ## Search Sites
+Primary / high-value sources:
+- **pracuj.pl** - major Polish general job board
+- **linkedin.com/jobs** - Warsaw / Poland, especially international employers
+- **indeed.com / pl.indeed.com** - broad Warsaw search coverage
+- **rocketjobs.pl** - technology, digital, business and marketing/operations roles
+- **nofluffjobs.com** - technical, data and some business/IT-support roles
 
-Primary (your market's job boards - scaffold one with `/add-portal`):
-- **[YOUR_JOB_BOARD]** - your market's largest general job board
-- **linkedin.com/jobs** - LinkedIn job listings (filter: [YOUR_COUNTRY] / [YOUR_CITY]); also covered by `linkedin-search` CLI
-- **[YOUR_INDUSTRY_JOB_BOARD]** - a niche/industry board for your field (optional)
-- **[YOUR_ADDITIONAL_JOB_BOARD]** - another major board for your market (optional)
+Secondary:
+- Employer career pages for Warsaw-based international companies
+- University/graduate portals and internship pages
+- Consulting, shared-services, fintech, automotive, real-estate and life-science employer sites
 
-Secondary (company career pages via Google):
-- Direct Google searches with `site:` filters for known target companies
+Companies worth monitoring include Allegro, Accenture, BMW, GSK, JLL and similar international employers in Warsaw. These are examples, not an exclusive list.
+
+## Language Scope
+Search mainly in English, plus useful Polish title variants where they help discover English-speaking jobs. The candidate's Polish is basic/learning, so a job requiring fluent/business Polish must be visibly flagged by the Language Gate. Do not discard a posting merely because the advertisement itself is written in Polish if the role's working-language requirements are compatible.
 
 ## Query Categories
 
-Queries are grouped by priority. Write **each category in every language from your Languages table** (see Language scope above). Combine each query with your location terms (e.g. your city, region, or metro area) where the site supports it.
+### Priority 1: Data / BI / Business Analytics
+Primary career direction. Search titles/functions such as:
+- Junior Data Analyst
+- Data Analyst Intern / Internship
+- Business Intelligence Intern
+- Junior BI Analyst
+- Reporting Analyst / Reporting Intern
+- Data Management Intern
+- Junior Business Analyst / Business Analyst Intern
+- Insights Analyst Intern
+- Analytics Intern
 
-**Organize by function, not job title.** The same underlying work carries different titles across companies and markets (a "Data Scientist" role at one employer may be posted as "Insights Analyst" or "Data Consultant" at another). Name each priority category after the function it covers, and list several plausible job titles as query variants within that category rather than betting an entire priority tier on one exact title string.
+High-signal skills/terms:
+- SQL
+- Power BI
+- Excel
+- reporting
+- dashboards
+- data validation
+- business analysis
 
-### Priority 1: [YOUR_PRIMARY_ROLE_TYPE]
-
-These match your strongest and most desired career direction.
-
+Example fallback queries:
 ```
-site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE_2]" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_KEY_SKILL]" [YOUR_CITY]
-site:linkedin.com/jobs "[YOUR_PRIMARY_JOB_TITLE_1]" [YOUR_COUNTRY]
+site:pracuj.pl ("Junior Data Analyst" OR "Data Analyst Intern" OR "Business Intelligence") Warszawa
+site:pracuj.pl ("Business Analyst Intern" OR "Junior Business Analyst") Warszawa English
+site:linkedin.com/jobs ("Data Analyst Intern" OR "Junior Data Analyst") Warsaw Poland
+site:linkedin.com/jobs ("Business Intelligence Intern" OR "Junior BI Analyst") Warsaw
+site:rocketjobs.pl (data OR analytics OR "business intelligence") Warszawa SQL
+site:nofluffjobs.com (data OR BI OR SQL) Warsaw junior
+"Warsaw" "Power BI" internship English
+"Warsaw" SQL analyst internship English
 ```
 
-### Priority 2: [YOUR_DOMAIN_EXPERTISE]
-
-These match your domain expertise.
-
+Polish discovery variants:
 ```
-site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] OR [YOUR_REGION]
-site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_2] [YOUR_COUNTRY]
-site:linkedin.com/jobs [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] [YOUR_COUNTRY]
+site:pracuj.pl ("młodszy analityk danych" OR "staż analityk danych") Warszawa
+site:pracuj.pl ("analityk biznesowy" OR "staż analityk biznesowy") Warszawa angielski
 ```
 
-### Priority 3: [YOUR_ADJACENT_ROLE_TYPE]
+### Priority 2: IT / Application / Technical Support
+Strong secondary direction based on customer-support background plus technical projects.
 
-Adjacent roles you could pivot into.
+Search titles/functions such as:
+- Junior IT Support Specialist
+- IT Support Intern
+- Application Support Specialist / Intern
+- Service Desk / Help Desk
+- Technical Support Specialist
+- Junior Tech Specialist
+- Customer Technical Support
+- Junior Support Engineer where requirements are entry-level
 
+High-signal terms:
+- troubleshooting
+- ticketing
+- Windows
+- Microsoft 365 / Office
+- SQL
+- APIs
+- application support
+- customer support
+
+Example fallback queries:
 ```
-site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] [YOUR_CITY]
+site:pracuj.pl ("Junior IT Support" OR "IT Support Specialist" OR "Service Desk") Warszawa English
+site:pracuj.pl ("Application Support" OR "Help Desk") Warszawa English
+site:linkedin.com/jobs ("Junior IT Support" OR "Application Support") Warsaw Poland
+site:linkedin.com/jobs ("Technical Support Specialist" OR "Junior Tech Specialist") Warsaw
+site:nofluffjobs.com (support OR "application support" OR helpdesk) Warsaw junior
 ```
 
-### Priority 4: Broader Technical / Consulting
-
-Wider net for general technical roles.
-
+Polish discovery variants:
 ```
-site:[YOUR_JOB_BOARD] [YOUR_KEY_SKILL] developer [YOUR_CITY]
-site:linkedin.com/jobs "[YOUR_KEY_SKILL] developer" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "technical consultant" [YOUR_DOMAIN] [YOUR_CITY]
+site:pracuj.pl ("młodszy specjalista IT" OR "wsparcie IT" OR helpdesk) Warszawa angielski
+```
+
+### Priority 3: English-speaking Business Operations / Back Office / Customer Support
+Useful adjacent roles with a realistic near-term fit and transferable experience.
+
+Search titles/functions such as:
+- Back Office Specialist with English
+- Junior Customer Service Representative with English
+- Customer Care / Customer Support
+- Operations Assistant / Operations Intern
+- Business Support Assistant
+- Administrative Assistant with English
+- Order Management / Client Support entry-level roles
+
+High-signal terms:
+- English
+- customer support
+- back office
+- operations
+- Excel
+- administration
+- CRM
+- international team
+
+Example fallback queries:
+```
+site:pracuj.pl ("Back Office" OR "Customer Service") English Warszawa junior
+site:pracuj.pl ("Customer Support" OR "Operations Assistant") Warszawa English
+site:linkedin.com/jobs ("Customer Service" OR "Back Office" OR "Operations Intern") Warsaw English
+"Warsaw" "Customer Support" English internship
+```
+
+### Priority 4: Adjacent Technology / Consulting / Risk
+Broader net for roles that connect business, technology and analysis.
+
+Search titles/functions such as:
+- Digital Transformation Intern
+- Technology Consulting Intern
+- CRM / MarTech Intern
+- Adobe Experience Cloud Intern
+- Data/Technology Consultant Intern
+- Risk Analyst Intern
+- Security Analytics Intern
+- Junior Technology Analyst
+
+Example fallback queries:
+```
+site:linkedin.com/jobs ("Technology Consulting Intern" OR "Digital Transformation Intern") Warsaw
+site:pracuj.pl ("technology intern" OR "consulting intern" OR "risk analyst intern") Warszawa English
+site:linkedin.com/jobs ("CRM Intern" OR "MarTech Intern" OR "Adobe Experience Cloud") Warsaw
+"Warsaw" "Risk Analyst Intern" English
 ```
 
 ## Location Filter
 
-When evaluating results, verify the job location is within reasonable commute distance from your home. Define acceptable areas:
-- [YOUR_CITY] and surrounding areas
-- [ACCEPTABLE_AREA_1]
-- [ACCEPTABLE_AREA_2]
-- [BORDERLINE_AREA] (borderline - ~X min by transit)
-- [TOO_FAR_AREA] (too far)
+### Ideal
+- Warsaw proper
+- Hybrid Warsaw roles
+- Remote roles based in Poland
 
-## Language Filter
+### Acceptable
+- Warsaw metropolitan area when public-transport commute is reasonable
+- Roles with occasional office attendance in Warsaw
 
-Your working languages and levels are in CLAUDE.md's Languages table. When filtering scraped results, apply `04-job-evaluation.md`'s Language Gate: a posting requiring a language you haven't declared at all is excluded; a posting requiring a higher level than you declared in a language you do work in is not excluded, flag it clearly instead (see `job-scraper/SKILL.md`'s Step 3 "Quick Fit Assessment" for how the flag surfaces in `/scrape` output). Postings simply *written* in a language you don't work in, that don't require it on the job, are fine.
+### Borderline
+- Jobs requiring a long daily commute outside the Warsaw metro area
+- Roles requiring 4-5 office days per week when travel would materially interfere with studies
+
+### Usually exclude / location FAIL
+- Mandatory relocation outside Warsaw for an ordinary junior role
+- Roles primarily based in another Polish city with frequent mandatory office attendance
+- Roles outside Poland that require relocation and do not offer a compelling exception
+
+## Seniority Filter
+Prioritize:
+- internship / intern
+- trainee / graduate
+- junior
+- assistant
+- entry-level
+- 0-2 years experience
+
+Do not automatically exclude a role asking for 1-2 years if the functional fit is strong. Deprioritize roles whose actual responsibilities are clearly mid/senior-level or require several years of specialized experience.
+
+## Work-Pattern Filter
+Preferred:
+- hybrid
+- office in Warsaw
+- remote within Poland
+- schedules compatible with university commitments
+
+The candidate can work approximately 35 hours/week. Do not assume every internship must be part-time; evaluate the actual schedule and start date.
 
 ## Date Filter
+Only include jobs posted within the last 14 days, or jobs with an application deadline that has not passed. If the posting date is unavailable, keep the job but flag the date as unknown. Verify the real posting URL before presenting it.
 
-Only include jobs posted within the last 14 days, or with an application deadline that has not yet passed. If a posting date cannot be determined, include it but flag as "date unknown".
+## Fit Priorities
+A strong result normally has several of these:
+- English is sufficient for the role
+- junior/intern/trainee seniority
+- Warsaw/hybrid/remote Poland
+- Excel, SQL, Power BI, reporting, data validation, business analysis, customer/application support, troubleshooting or similar transferable requirements
+- clear learning path
+- international team
+- no hard requirement for several years of specialized experience
 
-## Adapting Queries
+## Search Behavior
+By default, `/scrape` should run Priority 1, Priority 2 and Priority 3. Use Priority 4 in broad searches or when the first three categories have low yield.
 
-If the user specifies a focus area, select queries from the matching category and also generate 2-3 custom queries for that focus. For example:
-- "/scrape [focus_area]" -> relevant category queries + custom focus-specific queries
+When the user names a focus, prioritize that lane and generate 2-3 additional focus-specific searches. Continue to deduplicate against `seen_jobs.json` and the application tracker exactly as the scraper skill specifies.
